@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+
+    <h3>Products Detail</h3>
+
+    
+    <a href="@Url.Action("Index","Product")">Got To Previous Page</a>
+  
+
+    <table border="1">
+
+        <tr>
+            <td>Product ID</td>
+            <td>@ViewBag.product.ProdId</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Product Name</td>
+            <td>@ViewBag.product.Name</td>
+        </tr>
+
+        <tr>
+            <td>Price</td>
+            <td>@ViewBag.product.Price</td>
+
+        </tr>
+
+        <tr>
+            <td>Photo</td>
+            <td><img src="~/Content/Images/@ViewBag.product.Photo" width="60" /></td>
+
+        </tr>
+
+    </table>
+</body>
+</html>

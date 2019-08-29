@@ -18,5 +18,15 @@ namespace ParcelHubWebTest.Controllers
             ViewBag.products = db.tblProducts.ToList();
             return View();
         }
+
+
+        [HttpGet]
+        // Get: Details
+        public ActionResult Detail(int id)
+        {         //for a selected id from the database find the product             
+            ViewBag.product = db.tblProducts.Find(id);
+         
+            return View("Detail");
+        }
     }
 }
