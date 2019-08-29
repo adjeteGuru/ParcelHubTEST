@@ -188,6 +188,7 @@
       <DependentUpon>ModelParcelHub.edmx</DependentUpon>
     </Content>
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
