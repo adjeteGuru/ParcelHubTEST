@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ParcelHubDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblAccount">
+    <Key>
+      <PropertyRef Name="AccId" />
+    </Key>
+    <Property Name="AccId" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblReviews" Relationship="Self.FK_tblReview_tblAccount" FromRole="tblAccount" ToRole="tblReview" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="ProdId" />
+    </Key>
+    <Property Name="ProdId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblReviews" Relationship="Self.FK_tblReview_tblProduct" FromRole="tblProduct" ToRole="tblReview" />
+  </EntityType>
+  <EntityType Name="tblReview">
+    <Key>
+      <PropertyRef Name="RevId" />
+    </Key>
+    <Property Name="RevId" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="DatePost" Type="DateTime" Precision="3" />
+    <Property Name="ProdId" Type="Int32" />
+    <Property Name="AccId" Type="Int32" />
+    <NavigationProperty Name="tblAccount" Relationship="Self.FK_tblReview_tblAccount" FromRole="tblReview" ToRole="tblAccount" />
+    <NavigationProperty Name="tblProduct" Relationship="Self.FK_tblReview_tblProduct" FromRole="tblReview" ToRole="tblProduct" />
+  </EntityType>
+  <Association Name="FK_tblReview_tblAccount">
+    <End Role="tblAccount" Type="Self.tblAccount" Multiplicity="0..1" />
+    <End Role="tblReview" Type="Self.tblReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAccount">
+        <PropertyRef Name="AccId" />
+      </Principal>
+      <Dependent Role="tblReview">
+        <PropertyRef Name="AccId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblReview_tblProduct">
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
+    <End Role="tblReview" Type="Self.tblReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProdId" />
+      </Principal>
+      <Dependent Role="tblReview">
+        <PropertyRef Name="ProdId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ParcelHubDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblAccounts" EntityType="Self.tblAccount" />
+    <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+    <EntitySet Name="tblReviews" EntityType="Self.tblReview" />
+    <AssociationSet Name="FK_tblReview_tblAccount" Association="Self.FK_tblReview_tblAccount">
+      <End Role="tblAccount" EntitySet="tblAccounts" />
+      <End Role="tblReview" EntitySet="tblReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblReview_tblProduct" Association="Self.FK_tblReview_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProducts" />
+      <End Role="tblReview" EntitySet="tblReviews" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

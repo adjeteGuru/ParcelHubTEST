@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h3>Products List</h3>
+
+    <table border="1">
+
+        <tr>
+
+            <th>ProdId</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Photo</th>
+            <th>Option</th>
+
+
+        </tr>
+
+
+        @foreach (var product in ViewBag.products)
+        {
+            <tr>
+
+                <td>@product.ProdId</td>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+
+                <td><img src="~/Content/Images/animation1.jpg/@product.Photo" width="60" /></td>
+                <td><a href="@Url.Action("Detail", "Product", new {id = @product.ProdId })"> Detail </a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
