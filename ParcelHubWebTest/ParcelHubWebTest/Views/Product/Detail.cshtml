@@ -3,6 +3,7 @@
     Layout = null;
 }
 
+@model ParcelHubWebTest.Models.tblReview
 <!DOCTYPE html>
 
 <html>
@@ -46,5 +47,38 @@
         </tr>
 
     </table>
+
+    <h3>Comments</h3>
+
+    @if (Session["username"] == null)
+    {
+        <a href="@Url.Action("Login", "Account")">Login to post your comments</a>
+    }
+
+    else
+    {
+        using (Html.BeginForm("SendReview", "Product", FormMethod.Post))
+        {
+        <table cellpadding="2" cellspacing="2">
+           
+             <tr>
+                @*//this bring Content text to the top*@
+                <td valign="top">Content</td>
+                <td>@Html.TextAreaFor(model => model.Content, new { cols = 20, rows = 5 })</td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Send" />
+                    @Html.HiddenFor(model => model.ProdId)
+                </td>
+            </tr>
+            
+
+            </table>
+        }
+    }
+
 </body>
 </html>
